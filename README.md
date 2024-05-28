@@ -29,7 +29,7 @@ In the second scenario, one of your users is greeted by an image on a Windows de
 
 ### Scenario 1 (APT)
 
-Question:
+Question 1:
 What is the likely IPv4 address of someone from the Po1s0n1vy group scanning imreallynotbatman.com for web application vulnerabilities?
 
 The first step to answering these questions is to list the relevant information we know. Two pieces of information are relevant: The domain is “imreallynotbatman.com” and scanning is a very noticeable activity with a large volume of events. We need to look at traffic related to the domain, and can do so by using this query:
@@ -39,30 +39,34 @@ index=”botsv1" imreallynotbatman.com
 We are now able to see if the search helps to narrow the likely IP suspects by looking at the source IP addresses.
 
 ![Screenshot 2024-05-27 152546](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/97ea4eac-77a3-45eb-bdb7-0e4713fcd22d)
+
 Here we can see three IPs. Let’s start with the one with the highest count by using the following query: 
+
 index="botsv1"  imreallynotbatman.com src_ip="40.80.148.42"
+
+![Screenshot 2024-05-28 095338](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/7a79d4cf-fa89-4e4c-8799-729f8045d08e)
 
 Looking at the event contents, we see that this address is using the Acunetix Web Vulnerability Scanner. This confirms our answer: 40.80.148.4
 
-2What company created the web vulnerability scanner used by Po1s0n1vy? 
+Question 2:
+What company created the web vulnerability scanner used by Po1s0n1vy? 
+
 We found this answer when answering the previous question: Acunetix
 
-
-
-4. What content management system is imreallynotbatman.com likely using?
+Question 3: 
+What content management system is imreallynotbatman.com likely using?
 
 A content management system (CMS) is used to create, manage, and modify content on a website. The CMS may be mentioned in a file path on the website, which could be enumerated in the URL. Let’s take a look at some unique URL values for imreallynotbatman.com.
 
-We see that joomla is listed in multiple URL’s. Let’s look up what joomla is.
+![Screenshot 2024-05-28 101923](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/4858c40d-6e52-4878-9aa8-38f9dc24657a)
+
+We see that joomla is listed in multiple high freqency URL’s. Let’s look up what joomla is.
+
+![Screenshot 2024-05-28 102214](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/8ef1cbaa-01ac-4553-b07f-67a0f9e70367)
 
 Joomla is a CMS, which is exactly what we are looking for, confirming our answer: Joomla
 
-
-
-
-
-
-5. What is the name of the file that defaced the imreallynotbatman.com website? 
+Question 5: What is the name of the file that defaced the imreallynotbatman.com website? 
 
 The web server has been compromised at this point and will be the source of the file download request. The request will likely be using the HTTP protocol, which can further narrow our search.
 
