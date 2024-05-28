@@ -3,9 +3,8 @@
 ## Objective
 
 To demonstrate advanced cybersecurity skills and practical experience in threat detection, incident response, and security monitoring using Splunk.
-
 Complete a series of structured challenges that simulate real-world cyber attack scenarios, including brute force attacks, staging server identification, and ransomware analysis.
-Demonstrate problem-solving skills and the ability to follow investigative leads to their conclusion.
+Display problem-solving skills and the ability to follow investigative leads to their conclusion.
 
 ### Skills Learned
 
@@ -19,10 +18,5 @@ Demonstrate problem-solving skills and the ability to follow investigative leads
 
 - Splunk for log analysis.
 - VirusTotal for open source intelligence gathering.
-  
-## Steps
-drag & drop screenshots here or use imgur and reference them using imgsrc
 
-Every screenshot should have some text explaining what the screenshot is about.
-
-Example below.
+## Scenario
