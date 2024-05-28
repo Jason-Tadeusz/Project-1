@@ -2,21 +2,24 @@
 
 ## Objective
 
-The Detection Lab project aimed to establish a controlled environment for simulating and detecting cyber attacks. The primary focus was to ingest and analyze logs within a Security Information and Event Management (SIEM) system, generating test telemetry to mimic real-world attack scenarios. This hands-on experience was designed to deepen understanding of network security, attack patterns, and defensive strategies.
+To demonstrate advanced cybersecurity skills and practical experience in threat detection, incident response, and security monitoring using Splunk.
+
+Complete a series of structured challenges that simulate real-world cyber attack scenarios, including brute force attacks, staging server identification, and ransomware analysis.
+Demonstrate problem-solving skills and the ability to follow investigative leads to their conclusion.
 
 ### Skills Learned
 
 - Advanced understanding of SIEM concepts and practical application.
-- Proficiency in analyzing and interpreting network logs.
-- Ability to generate and recognize attack signatures and patterns.
-- Enhanced knowledge of network protocols and security vulnerabilities.
-- Development of critical thinking and problem-solving skills in cybersecurity.
+- Improved proficiency in analyzing and interpreting logs from varied sources.
+- Enhanced understanding of SPL commands and queries.
+- Strengthened critical thinking and problem-solving abilities in the field of cybersecurity.
+- Apply threat hunting techniques to discover malicious tools, tactics and procedures within a dataset.
 
 ### Tools Used
 
 - Splunk for log analysis.
 - VirusTotal for open source intelligence gathering.
-
+  
 ## Steps
 drag & drop screenshots here or use imgur and reference them using imgsrc
 
