@@ -29,8 +29,7 @@ In the second scenario, one of your users is greeted by an image on a Windows de
 
 ### Scenario 1 (APT)
 
-Question 1:
-What is the likely IPv4 address of someone from the Po1s0n1vy group scanning imreallynotbatman.com for web application vulnerabilities?
+### Question 1: What is the likely IPv4 address of someone from the Po1s0n1vy group scanning imreallynotbatman.com for web application vulnerabilities?
 
 The first step to answering these questions is to list the relevant information we know. Two pieces of information are relevant: The domain is “imreallynotbatman.com” and scanning is a very noticeable activity with a large volume of events. We need to look at traffic related to the domain, and can do so by using this query:
 
@@ -48,13 +47,11 @@ index="botsv1"  imreallynotbatman.com src_ip="40.80.148.42"
 
 Looking at the event contents, we see that this address is using the Acunetix Web Vulnerability Scanner. This confirms our answer: 40.80.148.4
 
-Question 2:
-What company created the web vulnerability scanner used by Po1s0n1vy? 
+### Question 2: What company created the web vulnerability scanner used by Po1s0n1vy? 
 
 We found this answer when answering the previous question: Acunetix
 
-Question 3: 
-What content management system is imreallynotbatman.com likely using?
+### Question 3: What content management system is imreallynotbatman.com likely using?
 
 A content management system (CMS) is used to create, manage, and modify content on a website. The CMS may be mentioned in a file path on the website, which could be enumerated in the URL. Let’s take a look at some unique URL values for imreallynotbatman.com.
 
@@ -66,8 +63,7 @@ We see that joomla is listed in multiple high freqency URL’s. Let’s look up 
 
 Joomla is a CMS, which is exactly what we are looking for, confirming our answer: Joomla
 
-Question 4: 
-What is the name of the file that defaced the imreallynotbatman.com website? 
+### Question 4: What is the name of the file that defaced the imreallynotbatman.com website? 
 
 The web server has been compromised at this point and will be the source of the file download request. The request will likely be using the HTTP protocol, which can further narrow our search.
 
@@ -81,15 +77,13 @@ We are given only 8 events from this search, which makes things easier. We can l
 
 Answer: poisonivy-is-coming-for-you-batman.jpeg
 
-Question 6:
-This attack used dynamic DNS to resolve to the malicious IP. What fully qualified domain name (FQDN) is associated with this attack?
+### Question 6: This attack used dynamic DNS to resolve to the malicious IP. What fully qualified domain name (FQDN) is associated with this attack?
 
 The FQDN from which the file was downloaded can be seen where we found our previous answer.
 
 Answer: prankglassinebracket.jumpingcrab.com
 
-Question 7:
-What IP address has Po1s0n1vy tied to domains that are pre-staged to attack Wayne Enterprises?
+### Question 7: What IP address has Po1s0n1vy tied to domains that are pre-staged to attack Wayne Enterprises?
 
 We found two IPs that are malicious. 23.22.63.114 is where the malicious file was downloaded from and 40.80.148.42 was the source of the scanning. We can find more information on these IPs using Virustotal.
 
@@ -99,8 +93,7 @@ We found on virus total that 23.22.63.114 is associated with malicious domains.
 
 Answer:23.22.63.114
 
-Question 8:
-What IP address is likely attempting a brute force password attack against imreallynotbatman.com?
+### Question 8: What IP address is likely attempting a brute force password attack against imreallynotbatman.com?
 
 Brute force password attacks will have the webserver as the destination IP and use HTTP POST method. The following will thus be our query:
 
@@ -121,8 +114,7 @@ Here we can see that the IP 23.22.63.114 is attempting to brute force using many
 
 Answer:23.22.63.114
 
-Question 9:
-What is the name of the executable uploaded by Po1s0n1vy?
+### Question 9: What is the name of the executable uploaded by Po1s0n1vy?
 
 We know that files are uploaded using the HTTP POST method and executables usually end in .exe. We will use the following query:
 
@@ -136,8 +128,7 @@ This gives us three events to look into. We can see two filenames listed in the 
 
 Answer: 3791.exe
 
-Question 10:
-What is the MD5 hash of the executable uploaded?
+### Question 10: What is the MD5 hash of the executable uploaded?
 
 First we need to find which log source contains the hash values of files to narrow our search.
 
@@ -159,7 +150,7 @@ index=botsv1 sourcetype=”XmlWinEventLog:Microsoft-Windows-Sysmon/Operational�
 
 Answer: AAE3F5A29935E6ABCC2C2754D12A9AF0
 
-Question 12. GCPD reported that common TTPs (Tactics, Techniques, Procedures) for the Po1s0n1vy APT group, if initial compromise fails, is to send a spear phishing email with custom malware attached to their intended target. This malware is usually connected to Po1s0n1vys initial attack infrastructure. Using research techniques, provide the SHA256 hash of this malware.
+### Question 12. GCPD reported that common TTPs (Tactics, Techniques, Procedures) for the Po1s0n1vy APT group, if initial compromise fails, is to send a spear phishing email with custom malware attached to their intended target. This malware is usually connected to Po1s0n1vys initial attack infrastructure. Using research techniques, provide the SHA256 hash of this malware.
 
 The initial attack infrastructure involves the IP address 23.22.63.114. We previously employed VirusTotal to find the domains linked to 23.22.63.114. Scrolling further down the page reveals three malware files in the "Communicating files" section.
 
@@ -167,12 +158,12 @@ The file MirandaTateScreensaver.scr.exe is the most likely used in phishing atta
 
 Answer: 9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8
 
-Question 13. What special hex code is associated with the customized malware discussed in question 11?
+### Question 13. What special hex code is associated with the customized malware discussed in question 11?
 
 Still using VirusTotal, our investigation leads us to the community tab, where a hex code associated with the malware is contained.
 Answer: 53 74 65 76 65 20 42 72 61 6e 74 27 73 20 42 65 61 72 64 20 69 73 20 61 20 70 6f 77 65 72 66 75 6c 20 74 68 69 6e 67 2e 20 46 69 6e 64 20 74 68 69 73 20 6d 65 73 73 61 67 65 20 61 6e 64 20 61 73 6b 20 68 69 6d 20 74 6f 20 62 75 79 20 79 6f 75 20 61 20 62 65 65 72 21 21 21
 
-Question 14. What was the first brute force password used?
+### Question 14. What was the first brute force password used?
 
 We previously found the brute force attempt and can continue that investigation to find the answer. To find the first attempt, we must sort the results by time. It is also helpful to put the results in a table to help visualize the data.
 
@@ -185,7 +176,7 @@ Here we can see that the entries are chronologically sorted and that the first p
 Answer:12345678
 
 
-Question 15. One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. We are looking for a six character word on this one. Which is it?
+### Question 15. One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. We are looking for a six character word on this one. Which is it?
 
 This question asks us to pick out a specific phrase with certain parameters. The password must have a length of six characters, all of which will be letters. The syntax of the field is such that "passwd=” precedes the six letter password. We can use this to narrow our search to just six letter password strings.
 
@@ -209,7 +200,7 @@ We have a match!
 
 Answer:Yellow
 
-Question 16. What was the correct password for admin access to the content management system running "imreallynotbatman.com"?
+### Question 16. What was the correct password for admin access to the content management system running "imreallynotbatman.com"?
 
 Let’s look at some sign-ons from sources that aren’t attempting to brute force. 
 index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" | regex form_data="passwd=*"
@@ -224,7 +215,7 @@ This login attempt used the password “batman” to log on.
 
 Answer: Batman
 
-Question 17. What was the average password length used in the password brute forcing attempt?
+### Question 17. What was the average password length used in the password brute forcing attempt?
 
 To answer this question, we must extract the passwords from “form_data” using the common “rex”. Once we have the passwords extracted, we will need to evaluate the length of characters of the passwords and put it into a new field. We will use the following query:
 
@@ -236,7 +227,7 @@ Here is the field extracted with relevant statistics calculated and displayed fo
 
 Answer: 6
 
-Question 18. How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login?
+### Question 18. How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login?
 
 To answer this, we will narrow the query so that only events in which the correct password “batman” was used are displayed.
 
@@ -248,7 +239,7 @@ Now that we have the only two events that are relevant, we will look at their ti
 
 Answer=92.17
 
-Question 19. How many unique passwords were attempted in the brute force attempt?
+### Question 19. How many unique passwords were attempted in the brute force attempt?
 
 Since we have a query that extracts the passwords, we can simply find the count of the passwords.
 
