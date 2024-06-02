@@ -194,7 +194,7 @@ Unfortunately, clocks wasn’t the song name we were looking for. Lets try anoth
 
 index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" src_ip=23.22.63.114 | regex form_data="passwd=yellow"
 
-##Image Here
+![Screenshot 2024-06-01 204603](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/73197862-c978-4236-8504-8bd399606964)
 
 We have a match!
 
