@@ -159,7 +159,7 @@ index=botsv1 sourcetype=”XmlWinEventLog:Microsoft-Windows-Sysmon/Operational�
 
 Answer: AAE3F5A29935E6ABCC2C2754D12A9AF0
 
-12. GCPD reported that common TTPs (Tactics, Techniques, Procedures) for the Po1s0n1vy APT group, if initial compromise fails, is to send a spear phishing email with custom malware attached to their intended target. This malware is usually connected to Po1s0n1vys initial attack infrastructure. Using research techniques, provide the SHA256 hash of this malware.
+Question 12. GCPD reported that common TTPs (Tactics, Techniques, Procedures) for the Po1s0n1vy APT group, if initial compromise fails, is to send a spear phishing email with custom malware attached to their intended target. This malware is usually connected to Po1s0n1vys initial attack infrastructure. Using research techniques, provide the SHA256 hash of this malware.
 
 The initial attack infrastructure involves the IP address 23.22.63.114. We previously employed VirusTotal to find the domains linked to 23.22.63.114. Scrolling further down the page reveals three malware files in the "Communicating files" section.
 
@@ -167,11 +167,12 @@ The file MirandaTateScreensaver.scr.exe is the most likely used in phishing atta
 
 Answer: 9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8
 
-13. What special hex code is associated with the customized malware discussed in question 11?
+Question 13. What special hex code is associated with the customized malware discussed in question 11?
+
 Still using VirusTotal, our investigation leads us to the community tab, where a hex code associated with the malware is contained.
 Answer: 53 74 65 76 65 20 42 72 61 6e 74 27 73 20 42 65 61 72 64 20 69 73 20 61 20 70 6f 77 65 72 66 75 6c 20 74 68 69 6e 67 2e 20 46 69 6e 64 20 74 68 69 73 20 6d 65 73 73 61 67 65 20 61 6e 64 20 61 73 6b 20 68 69 6d 20 74 6f 20 62 75 79 20 79 6f 75 20 61 20 62 65 65 72 21 21 21
 
-14. What was the first brute force password used?
+Question 14. What was the first brute force password used?
 
 We previously found the brute force attempt and can continue that investigation to find the answer. To find the first attempt, we must sort the results by time. It is also helpful to put the results in a table to help visualize the data.
 
@@ -184,7 +185,7 @@ Here we can see that the entries are chronologically sorted and that the first p
 Answer:12345678
 
 
-14) One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. We are looking for a six character word on this one. Which is it?
+Question 15. One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. We are looking for a six character word on this one. Which is it?
 
 This question asks us to pick out a specific phrase with certain parameters. The password must have a length of six characters, all of which will be letters. The syntax of the field is such that "passwd=” precedes the six letter password. We can use this to narrow our search to just six letter password strings.
 
@@ -208,7 +209,7 @@ We have a match!
 
 Answer:Yellow
 
-16) What was the correct password for admin access to the content management system running "imreallynotbatman.com"?
+Question 16. What was the correct password for admin access to the content management system running "imreallynotbatman.com"?
 
 Let’s look at some sign-ons from sources that aren’t attempting to brute force. 
 index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" | regex form_data="passwd=*"
@@ -223,7 +224,7 @@ This login attempt used the password “batman” to log on.
 
 Answer: Batman
 
-`17) What was the average password length used in the password brute forcing attempt?
+Question 17. What was the average password length used in the password brute forcing attempt?
 
 To answer this question, we must extract the passwords from “form_data” using the common “rex”. Once we have the passwords extracted, we will need to evaluate the length of characters of the passwords and put it into a new field. We will use the following query:
 
@@ -235,7 +236,7 @@ Here is the field extracted with relevant statistics calculated and displayed fo
 
 Answer: 6
 
-How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login?
+Question 18. How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login?
 
 To answer this, we will narrow the query so that only events in which the correct password “batman” was used are displayed.
 
@@ -246,7 +247,8 @@ Now that we have the only two events that are relevant, we will look at their ti
 ![Screenshot 2024-06-01 152429](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/e1416feb-f439-4709-8a2e-70563d24d6f7)
 
 Answer=92.17
-How many unique passwords were attempted in the brute force attempt?
+
+Question 19. How many unique passwords were attempted in the brute force attempt?
 
 Since we have a query that extracts the passwords, we can simply find the count of the passwords.
 
