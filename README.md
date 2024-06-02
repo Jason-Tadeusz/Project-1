@@ -171,27 +171,89 @@ Answer: 9709473ab351387aab9e816eff3910b9f28a7a70202e250ed46dba8f820f34a8
 Still using VirusTotal, our investigation leads us to the community tab, where a hex code associated with the malware is contained.
 Answer: 53 74 65 76 65 20 42 72 61 6e 74 27 73 20 42 65 61 72 64 20 69 73 20 61 20 70 6f 77 65 72 66 75 6c 20 74 68 69 6e 67 2e 20 46 69 6e 64 20 74 68 69 73 20 6d 65 73 73 61 67 65 20 61 6e 64 20 61 73 6b 20 68 69 6d 20 74 6f 20 62 75 79 20 79 6f 75 20 61 20 62 65 65 72 21 21 21
 
-What was the first brute force password used?
+14. What was the first brute force password used?
 
 We previously found the brute force attempt and can continue that investigation to find the answer. To find the first attempt, we must sort the results by time. It is also helpful to put the results in a table to help visualize the data.
 
 index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" src_ip=23.22.63.114 | sort _time | table  _time src_ip form_data
+
+![Screenshot 2024-05-31 144115](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/b05d2981-728a-4f39-9cff-8de9674aa7e7)
+
 Here we can see that the entries are chronologically sorted and that the first password attempt is 12345678.
 
 Answer:12345678
 
-One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. We are looking for a six character word on this one. Which is it?
 
-This question asks us to pick out a specific phrase with certain parameters. To do so we need to identify Coldplay songs with six-character titles. Here is a list that will include some of the songs that qualify: Violet, Sparks, Square, Yellow, Shiver, Clocks, Always, Ghosts, and Church.
-We'll then attempt to match any captured passwords with these song titles.
-(?i) makes the pattern case-insensitive. (?<password>[a-zA-Z]{6})` captures a six-letter password using `[a-zA-Z]{6}`, which matches any six consecutive letters, regardless of case.
-Once the password is captured, the "search" command filters for passwords that match any of the Coldplay songs listed. The "IN" operator checks if the "password" field matches any song title in the list. We will then get the password in the table.
+14) One of the passwords in the brute force attack is James Brodsky's favorite Coldplay song. We are looking for a six character word on this one. Which is it?
 
-index=botsv1 sourcetype=stream:http dest_ip="192.168.250.70" http_method=POST 
-| rex field=form_data "(?i)passwd=(?<password>[a-zA-Z]{6})"
-| search password IN (Violet, Sparks, Square, Yellow, Shiver, Clocks, Always, Ghosts, Church)
-| table password
+This question asks us to pick out a specific phrase with certain parameters. The password must have a length of six characters, all of which will be letters. The syntax of the field is such that "passwd=” precedes the six letter password. We can use this to narrow our search to just six letter password strings.
+
+index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" src_ip=23.22.63.114 | regex form_data="passwd=[A-Za-z]{6}"
+
+![Screenshot 2024-05-31 152120](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/200bf4b1-fee9-439a-95f1-a6c85d697f23)
+
+Here we see that we still have 315 events to look through. We need to think what other parameters could be used to narrow our search. We can look up a list of coldplay songs and find ones with six letters in their name and use them in our query.
+
+index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" src_ip=23.22.63.114 | regex form_data="passwd=clocks"
+
+![Screenshot 2024-05-31 150420](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/a299c5ee-e8a7-45ea-af19-9e27de9db9af)
+
+Unfortunately, clocks wasn’t the song name we were looking for. Lets try another.
+
+index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" src_ip=23.22.63.114 | regex form_data="passwd=yellow"
+
+##Image Here
+
+We have a match!
 
 Answer:Yellow
+
+16) What was the correct password for admin access to the content management system running "imreallynotbatman.com"?
+
+Let’s look at some sign-ons from sources that aren’t attempting to brute force. 
+index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" | regex form_data="passwd=*"
+
+![Screenshot 2024-05-31 152120](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/db567090-b714-4c69-a19b-f775cafd962a)
+
+It looks like there is only one log on attempt from another source, so lets take a look at that one.
+
+![Screenshot 2024-06-01 144513](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/1ac0ae55-abc7-4893-9cf0-1bb8ce98f393)
+
+This login attempt used the password “batman” to log on.
+
+Answer: Batman
+
+`17) What was the average password length used in the password brute forcing attempt?
+
+To answer this question, we must extract the passwords from “form_data” using the common “rex”. Once we have the passwords extracted, we will need to evaluate the length of characters of the passwords and put it into a new field. We will use the following query:
+
+index=botsv1 dest_ip=192.168.250.70 http_method=POST sourcetype="stream:http" src_ip=23.22.63.114 |rex field=form_data "passwd=(?<password>\w+)" | eval length=len(password)
+
+![Screenshot 2024-06-01 150756](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/e4cb4f6a-0ade-444a-b200-b013451e385c)
+
+Here is the field extracted with relevant statistics calculated and displayed for us. It gives us the average value of the length field, corresponding to the number of characters in the passwords.
+
+Answer: 6
+
+How many seconds elapsed between the time the brute force password scan identified the correct password and the compromised login?
+
+To answer this, we will narrow the query so that only events in which the correct password “batman” was used are displayed.
+
+![Screenshot 2024-06-01 151618](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/9aff96a1-d7c6-4fea-858d-b396912001a6)
+
+Now that we have the only two events that are relevant, we will look at their times and calculate the time in seconds.
+
+![Screenshot 2024-06-01 152429](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/e1416feb-f439-4709-8a2e-70563d24d6f7)
+
+Answer=92.17
+How many unique passwords were attempted in the brute force attempt?
+
+Since we have a query that extracts the passwords, we can simply find the count of the passwords.
+
+![Screenshot 2024-06-01 160448](https://github.com/Jason-Tadeusz/Splunk-Lab/assets/155782613/4c4d473f-2ae5-4403-89c9-f0ebc26c0900)
+
+There are 412 unique password values listed in the count statistic.
+
+Answer: 412
 
 
